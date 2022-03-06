@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rating</title>
+</head>
+<body>
+<div id="container"></div>
+
+<script>
+    const restApiResponse = [{
+        "page": 1,
+        "data": [{
+            "title": "Movie 1",
+            "rating": 4.7
+        },{
+            "title": "Movie 2",
+            "rating": 7.8
+        }]
+    },{
+        "page": 2,
+        "data": [{
+            "title": "Movie 3",
+            "rating": 5.1
+        },{
+            "title": "Movie 4",
+            "rating": 2.4
+        }]
+    }];
+
+    let ratingArray = [];
+    for(let indexRestApiResponse = 0; indexRestApiResponse < restApiResponse.length; indexRestApiResponse++){
+        for(let indexData = 0; indexData < restApiResponse[indexRestApiResponse].data.length; indexData++){
+            ratingArray.push(restApiResponse[indexRestApiResponse].data[indexData].rating);
+        }
+    }
+
+    const sum = ratingArray.reduce((a, b) => a + b, 0);
+    const avg = (sum / ratingArray.length) || 0;
+    const max = ratingArray.reduce(function(a, b) {
+        return Math.max(a, b);
+    }, -Infinity);
+    let containerContent = "<p>The average rating is: " + avg + "</p>";
+    containerContent += "<p>The maximum rating is: " + max + "</p>";
+    container.innerHTML = containerContent;
+
+</script>
+</body>
+</html>
