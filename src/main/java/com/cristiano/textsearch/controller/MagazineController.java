@@ -1,43 +1,40 @@
 package com.cristiano.textsearch.controller;
 
 import com.cristiano.textsearch.entity.Magazine;
-import com.cristiano.textsearch.repository.MagazineRepository;
+import com.cristiano.textsearch.service.MagazineService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 public class MagazineController {
 
-    private final MagazineRepository magazineRepository;
+    private final MagazineService magazineService;
 
-    public MagazineController(MagazineRepository magazineRepository) {
-        this.magazineRepository = magazineRepository;
+    public MagazineController(MagazineService magazineService) {
+        this.magazineService = magazineService;
     }
 
     @GetMapping("/magazines")
     public List<Magazine> getMagazines() {
-        return (List<Magazine>) magazineRepository.findAll();
+        return magazineService.getMagazines();
     }
 
     @PostMapping("/magazines")
-    public Magazine addMagazine(@RequestBody Magazine magazine) {
-        return magazineRepository.save(magazine);
+    public Magazine addMagazine(String magazine, @RequestParam("file") MultipartFile file) throws IOException {
+        return magazineService.addMagazine(magazine, file);
     }
 
     @PutMapping("/magazines/{id}")
-    public Magazine updateMagazine(@PathVariable(value = "id") Long id, @RequestBody Magazine magazine) {
-        Magazine savedMagazine = magazineRepository.findById(id).orElseGet(() -> {
-            magazine.setId(id);
-            return magazineRepository.save(magazine);
-        });
-        savedMagazine.setName(magazine.getName());
-        savedMagazine.setPublicationDate(magazine.getPublicationDate());
-        return magazineRepository.save(savedMagazine);
+    public Magazine updateMagazine(@PathVariable(value = "id") Long id, String magazine, @RequestParam("file") MultipartFile file)
+            throws IOException {
+        return magazineService.updateMagazine(id, magazine, file);
     }
 
     @DeleteMapping(value = "/magazines/{id}")
     public void deleteMagazine(@PathVariable Long id) {
-        magazineRepository.deleteById(id);
+        magazineService.deleteMagazine(id);
     }
 }

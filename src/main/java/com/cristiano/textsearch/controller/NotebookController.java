@@ -1,42 +1,40 @@
 package com.cristiano.textsearch.controller;
 
 import com.cristiano.textsearch.entity.Notebook;
-import com.cristiano.textsearch.repository.NotebookRepository;
+import com.cristiano.textsearch.service.NotebookService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 public class NotebookController {
 
-    private final NotebookRepository notebookRepository;
+    private final NotebookService notebookService;
 
-    public NotebookController(NotebookRepository notebookRepository) {
-        this.notebookRepository = notebookRepository;
+    public NotebookController(NotebookService notebookService) {
+        this.notebookService = notebookService;
     }
 
     @GetMapping("/notebooks")
     public List<Notebook> getNotebooks() {
-        return (List<Notebook>) notebookRepository.findAll();
+        return notebookService.getNotebooks();
     }
 
     @PostMapping("/notebooks")
-    public Notebook addNotebook(@RequestBody Notebook notebook) {
-        return notebookRepository.save(notebook);
+    public Notebook addNotebook(String notebook, @RequestParam("file") MultipartFile file) throws IOException {
+        return notebookService.addNotebook(notebook, file);
     }
 
     @PutMapping("/notebooks/{id}")
-    public Notebook updateNotebook(@PathVariable(value = "id") Long id, @RequestBody Notebook notebook) {
-        Notebook savedNotebook = notebookRepository.findById(id).orElseGet(() -> {
-            notebook.setId(id);
-            return notebookRepository.save(notebook);
-        });
-        savedNotebook.setOwner(notebook.getOwner());
-        return notebookRepository.save(savedNotebook);
+    public Notebook updateNotebook(@PathVariable(value = "id") Long id, String notebook, @RequestParam("file") MultipartFile file)
+            throws IOException {
+        return notebookService.updateNotebook(id, notebook, file);
     }
 
     @DeleteMapping(value = "/notebooks/{id}")
     public void deleteNotebook(@PathVariable Long id) {
-        notebookRepository.deleteById(id);
+        notebookService.deleteNotebook(id);
     }
 }
