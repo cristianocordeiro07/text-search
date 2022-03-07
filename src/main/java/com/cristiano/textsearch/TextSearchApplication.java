@@ -6,6 +6,7 @@ import com.cristiano.textsearch.entity.Notebook;
 import com.cristiano.textsearch.repository.BookRepository;
 import com.cristiano.textsearch.repository.MagazineRepository;
 import com.cristiano.textsearch.repository.NotebookRepository;
+import com.cristiano.textsearch.service.LuceneService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -56,5 +57,10 @@ public class TextSearchApplication {
             notebookRepository.findAll().forEach(notebook ->
                     System.out.println(notebook.getId() + " - " + notebook.getOwner()));
         };
+    }
+
+    @Bean
+    CommandLineRunner init4(LuceneService luceneService) {
+        return args -> luceneService.indexFiles();
     }
 }

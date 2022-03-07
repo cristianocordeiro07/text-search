@@ -1,15 +1,17 @@
 package com.cristiano.textsearch.controller;
 
+import com.cristiano.textsearch.entity.BookShelfItem;
 import com.cristiano.textsearch.service.BookshelfItemService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class BookshelfItemController {
 
     private final BookshelfItemService bookshelfItemService;
-
 
     public BookshelfItemController(BookshelfItemService bookshelfItemService) {
         this.bookshelfItemService = bookshelfItemService;
@@ -33,5 +35,16 @@ public class BookshelfItemController {
     @GetMapping("/bookshelfItems/readPage")
     public String readPage(@PathVariable Long id) {
         return "";
+    }
+
+    @GetMapping("/bookshelfItems/searchItems")
+    public List<BookShelfItem> searchByText(String text) {
+        try {
+            return bookshelfItemService.searchByText(text);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
