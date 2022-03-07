@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "uploadFile",
+			"name": "addBook",
 			"request": {
 				"method": "POST",
 				"header": [],

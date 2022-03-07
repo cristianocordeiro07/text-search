@@ -3,9 +3,11 @@ package com.cristiano.textsearch.controller;
 import com.cristiano.textsearch.entity.BookShelfItem;
 import com.cristiano.textsearch.service.BookshelfItemService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.awt.print.PrinterException;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -33,8 +35,8 @@ public class BookshelfItemController {
     }
 
     @GetMapping("/bookshelfItems/readPage")
-    public String readPage(@PathVariable Long id) {
-        return "";
+    public File readPage(Long itemId, Long pageNumber) throws PrinterException, IOException {
+        return bookshelfItemService.readPage(itemId, pageNumber);
     }
 
     @GetMapping("/bookshelfItems/searchItems")

@@ -84,6 +84,36 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "ReadPage",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bookshelfItems/readPage?itemId=7&pageNumber=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookshelfItems",
+						"readPage"
+					],
+					"query": [
+						{
+							"key": "itemId",
+							"value": "7"
+						},
+						{
+							"key": "pageNumber",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

@@ -5,11 +5,13 @@ import com.cristiano.textsearch.repository.BookshelfItemRepository;
 import com.cristiano.textsearch.service.BookshelfItemService;
 import com.cristiano.textsearch.service.LuceneService;
 import org.apache.lucene.document.Document;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -53,8 +55,8 @@ public class BookshelfItemServiceImpl implements BookshelfItemService {
         }
     }
 
-    public String readPage(@PathVariable Long id) {
-        return "";
+    public File readPage(Long itemId, Long pageNumber) throws PrinterException, IOException {
+        return printPDFS(itemId.toString(), pageNumber);
     }
 
     public List<BookShelfItem> searchByText(String text) throws Exception {
@@ -63,7 +65,7 @@ public class BookshelfItemServiceImpl implements BookshelfItemService {
         List<Document> documents = luceneService.searchText(text);
 
         for (Document doc : documents) {
-            if(doc.get("itemId") != null){
+            if (doc.get("itemId") != null) {
                 bookshelfItemRepository.findById(Long.parseLong(doc.get("itemId"))).ifPresent(items::add);
             }
         }
@@ -89,4 +91,28 @@ public class BookshelfItemServiceImpl implements BookshelfItemService {
         File file = new File(FILE_DIRECTORY + fileName);
         file.delete();
     }
+
+    private File printPDFS(String fileName, long pageNumber) throws PrinterException, IOException {
+
+        PrinterJob printJob = PrinterJob.getPrinterJob();
+        printJob.getPrintService();
+        PrinterJob job = PrinterJob.getPrinterJob();
+        job.setPrintService(printJob.getPrintService());
+
+        File file = new File(FILE_DIRECTORY + fileName);
+        PDDocument doc = PDDocument.load(file);
+
+        //Page index start at 0
+        pageNumber--;
+        for (int j = doc.getNumberOfPages() - 1; j >= 0; j--) {
+            if (pageNumber != j) {
+                doc.removePage(j);
+            }
+        }
+
+        final File newFile = File.createTempFile(fileName.concat("tempFile"), ".pdf");
+        doc.save(newFile);
+        return newFile;
+    }
+
 }
