@@ -59,8 +59,8 @@ public class TextSearchApplication {
         };
     }
 
-    @Bean
-    CommandLineRunner init4(LuceneService luceneService) {
-        return args -> luceneService.indexFiles();
-    }
+//    @Bean
+//    CommandLineRunner init4(LuceneService luceneService) {
+//        return args -> luceneService.indexFiles();
+//    }
 }

@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "2d2c6a0b-3536-4277-a871-2f39d42541ce",
+		"name": "BookshelfItem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "MaxItems",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bookshelfItems/maxItems",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookshelfItems",
+						"maxItems"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "How Many More Can Hold",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bookshelfItems/howManyMoreCanHold",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookshelfItems",
+						"howManyMoreCanHold"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Count",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bookshelfItems/count",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookshelfItems",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchItems",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bookshelfItems/searchItems",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookshelfItems",
+						"searchItems"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
