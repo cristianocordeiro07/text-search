@@ -58,9 +58,4 @@ public class TextSearchApplication {
                     System.out.println(notebook.getId() + " - " + notebook.getOwner()));
         };
     }
-
-//    @Bean
-//    CommandLineRunner init4(LuceneService luceneService) {
-//        return args -> luceneService.indexFiles();
-//    }
 }

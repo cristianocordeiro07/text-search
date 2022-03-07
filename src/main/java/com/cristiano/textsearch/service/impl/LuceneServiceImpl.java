@@ -12,6 +12,8 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,8 @@ import java.util.List;
 
 @Service
 public class LuceneServiceImpl implements LuceneService {
+
+    Logger logger = LoggerFactory.getLogger(LuceneServiceImpl.class);
 
     @Value("${file-upload-dir}")
     String FILE_DIRECTORY;
@@ -55,7 +59,7 @@ public class LuceneServiceImpl implements LuceneService {
 
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -70,7 +74,7 @@ public class LuceneServiceImpl implements LuceneService {
                         //Index this file
                         indexDoc(writer, file, attrs.lastModifiedTime().toMillis());
                     } catch (IOException ioe) {
-                        ioe.printStackTrace();
+                        logger.error(ioe.getMessage(), ioe);
                     }
                     return FileVisitResult.CONTINUE;
                 }
@@ -138,5 +142,4 @@ public class LuceneServiceImpl implements LuceneService {
         //search the index
         return searcher.search(query, 10);
     }
-
 }
