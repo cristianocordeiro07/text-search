@@ -48,14 +48,14 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "file",
-							"type": "file",
-							"src": "/C:/Users/crist/Desktop/sample.pdf"
-						},
-						{
 							"key": "book",
 							"value": "{\n\"title\": \"updated book\",\n\"author\": \"Cristiano\"\n}",
 							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/crist/Desktop/sample.pdf"
 						}
 					]
 				},
