@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 public class NotebookServiceImpl implements NotebookService {
 
-    @Value("${file.upload-dir}")
+    @Value("${file-upload-dir}")
     String FILE_DIRECTORY;
 
     private final NotebookRepository notebookRepository;

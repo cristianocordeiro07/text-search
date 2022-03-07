@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 public class MagazineServiceImpl implements MagazineService {
 
-    @Value("${file.upload-dir}")
+    @Value("${file-upload-dir}")
     String FILE_DIRECTORY;
 
     private final MagazineRepository magazineRepository;

@@ -2,6 +2,7 @@ package com.cristiano.textsearch.controller;
 
 import com.cristiano.textsearch.service.BookshelfItemService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,5 +28,10 @@ public class BookshelfItemController {
     @GetMapping("/bookshelfItems/howManyMoreCanHold")
     public long howManyMoreCanHold() {
         return bookshelfItemService.howManyMoreCanHold();
+    }
+
+    @GetMapping("/bookshelfItems/readPage")
+    public String readPage(@PathVariable Long id) {
+        return "";
     }
 }

@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 public class BookServiceImpl implements BookService {
 
-    @Value("${file.upload-dir}")
+    @Value("${file-upload-dir}")
     String FILE_DIRECTORY;
 
     private final BookRepository bookRepository;

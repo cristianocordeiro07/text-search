@@ -4,6 +4,7 @@ import com.cristiano.textsearch.repository.BookshelfItemRepository;
 import com.cristiano.textsearch.service.BookshelfItemService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Objects;
 
@@ -35,5 +36,9 @@ public class BookshelfItemServiceImpl implements BookshelfItemService {
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    public String readPage(@PathVariable Long id) {
+        return "";
     }
 }
