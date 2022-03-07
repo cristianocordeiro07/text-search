@@ -32,7 +32,7 @@ public class MagazineServiceImpl implements MagazineService {
 
     public Magazine addMagazine(String magazine, @RequestParam("file") MultipartFile file) throws IOException {
         Magazine savedMagazine = magazineRepository.save(parseObject(magazine));
-        bookshelfItemService.updateFile(savedMagazine, file);
+        bookshelfItemService.saveFile(savedMagazine, file);
         return savedMagazine;
     }
 
@@ -46,7 +46,7 @@ public class MagazineServiceImpl implements MagazineService {
         savedMagazine.setName(objectMagazine.getName());
         savedMagazine.setPublicationDate(objectMagazine.getPublicationDate());
         savedMagazine = magazineRepository.save(savedMagazine);
-        bookshelfItemService.updateFile(savedMagazine, file);
+        bookshelfItemService.saveFile(savedMagazine, file);
         return savedMagazine;
     }
 

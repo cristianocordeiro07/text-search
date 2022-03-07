@@ -32,7 +32,7 @@ public class NotebookServiceImpl implements NotebookService {
 
     public Notebook addNotebook(String notebook, @RequestParam("file") MultipartFile file) throws IOException {
         Notebook savedNotebook = notebookRepository.save(parseObject(notebook));
-        bookshelfItemService.updateFile(savedNotebook, file);
+        bookshelfItemService.saveFile(savedNotebook, file);
         return savedNotebook;
     }
 
@@ -45,7 +45,7 @@ public class NotebookServiceImpl implements NotebookService {
         });
         savedNotebook.setOwner(objectNotebook.getOwner());
         savedNotebook = notebookRepository.save(savedNotebook);
-        bookshelfItemService.updateFile(savedNotebook, file);
+        bookshelfItemService.saveFile(savedNotebook, file);
         return savedNotebook;
     }
 

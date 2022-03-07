@@ -32,7 +32,7 @@ public class BookServiceImpl implements BookService {
 
     public Book addBook(String book, @RequestParam("file") MultipartFile file) throws IOException {
         Book savedBook = bookRepository.save(parseBook(book));
-        bookshelfItemService.updateFile(savedBook, file);
+        bookshelfItemService.saveFile(savedBook, file);
         return savedBook;
     }
 
@@ -46,7 +46,7 @@ public class BookServiceImpl implements BookService {
         savedBook.setTitle(objectBook.getTitle());
         savedBook.setAuthor(objectBook.getAuthor());
         savedBook = bookRepository.save(savedBook);
-        bookshelfItemService.updateFile(savedBook, file);
+        bookshelfItemService.saveFile(savedBook, file);
         return savedBook;
     }
 

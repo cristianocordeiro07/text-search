@@ -19,7 +19,7 @@ public interface BookshelfItemService {
 
     List<BookShelfItem> searchByText(String text) throws Exception;
 
-    void updateFile(BookShelfItem item, MultipartFile file) throws IOException;
+    void saveFile(BookShelfItem item, MultipartFile file) throws IOException;
 
     void deleteFile(String fileName);
 }

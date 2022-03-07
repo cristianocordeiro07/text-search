@@ -75,16 +75,20 @@ public class BookshelfItemServiceImpl implements BookshelfItemService {
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public void updateFile(BookShelfItem item, MultipartFile file) throws IOException {
-        File myFile = new File(FILE_DIRECTORY + item.getId());
-        myFile.createNewFile();
-        FileOutputStream fos = new FileOutputStream(myFile);
-        fos.write(file.getBytes());
-        fos.close();
+    public void saveFile(BookShelfItem item, MultipartFile file) throws IOException {
+        if (file.getContentType() != null && file.getContentType().equals("application/pdf")) {
+            File myFile = new File(FILE_DIRECTORY + item.getId());
+            myFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(myFile);
+            fos.write(file.getBytes());
+            fos.close();
 
-        //TODO create a Job
-        //Index all files
-        luceneService.indexFiles();
+            //TODO create a Job
+            //Index all files
+            luceneService.indexFiles();
+        } else {
+            throw new RuntimeException("Just accept pdf files!");
+        }
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
