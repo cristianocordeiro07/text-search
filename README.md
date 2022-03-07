@@ -6,6 +6,7 @@
 ## Tecnologies:
 - Java 11;
 - Spring Boot 2.6.4;
+- H2 Database;
 - Lucene 6.6.0 (search text in PDF Files);
 
 ## Observations: 
