@@ -35,7 +35,7 @@ public class BookshelfItemController {
     }
 
     @GetMapping("/bookshelfItems/readPage")
-    public File readPage(Long itemId, Long pageNumber) throws PrinterException, IOException {
+    public String readPage(Long itemId, Long pageNumber) throws PrinterException, IOException {
         return bookshelfItemService.readPage(itemId, pageNumber);
     }
 

@@ -6,6 +6,7 @@ import com.cristiano.textsearch.service.BookshelfItemService;
 import com.cristiano.textsearch.service.LuceneService;
 import org.apache.lucene.document.Document;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,8 +56,8 @@ public class BookshelfItemServiceImpl implements BookshelfItemService {
         }
     }
 
-    public File readPage(Long itemId, Long pageNumber) throws PrinterException, IOException {
-        return printPDFS(itemId.toString(), pageNumber);
+    public String readPage(Long itemId, Long pageNumber) throws PrinterException, IOException {
+        return getPdfTextByPage(itemId.toString(), pageNumber);
     }
 
     public List<BookShelfItem> searchByText(String text) throws Exception {
@@ -92,7 +93,7 @@ public class BookshelfItemServiceImpl implements BookshelfItemService {
         file.delete();
     }
 
-    private File printPDFS(String fileName, long pageNumber) throws PrinterException, IOException {
+    private String getPdfTextByPage(String fileName, long pageNumber) throws PrinterException, IOException {
 
         PrinterJob printJob = PrinterJob.getPrinterJob();
         printJob.getPrintService();
@@ -110,9 +111,11 @@ public class BookshelfItemServiceImpl implements BookshelfItemService {
             }
         }
 
-        final File newFile = File.createTempFile(fileName.concat("tempFile"), ".pdf");
-        doc.save(newFile);
-        return newFile;
+        return new PDFTextStripper().getText(doc);
+
+        //Case need to save the pdf file
+//        final File newFile = File.createTempFile(fileName.concat("tempFile"), ".pdf");
+//        doc.save(newFile);
     }
 
 }
