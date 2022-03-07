@@ -40,6 +40,41 @@
 			"response": []
 		},
 		{
+			"name": "updateBook",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/crist/Desktop/sample.pdf"
+						},
+						{
+							"key": "book",
+							"value": "{\n\"title\": \"updated book\",\n\"author\": \"Cristiano\"\n}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/books/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "getBooks",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true

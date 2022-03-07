@@ -2,19 +2,16 @@ package com.cristiano.textsearch.controller;
 
 import com.cristiano.textsearch.entity.BookShelfItem;
 import com.cristiano.textsearch.service.BookshelfItemService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.print.PrinterException;
-import java.io.IOException;
 import java.util.List;
 
+@SuppressWarnings({"unchecked", "rawtypes"})
 @RestController
 public class BookshelfItemController {
-
-    Logger logger = LoggerFactory.getLogger(BookshelfItemController.class);
 
     private final BookshelfItemService bookshelfItemService;
 
@@ -23,33 +20,47 @@ public class BookshelfItemController {
     }
 
     @GetMapping("/bookshelfItems/count")
-    public long count() {
-        return bookshelfItemService.count();
+    public ResponseEntity<Long> count() {
+        try {
+            return new ResponseEntity<>(bookshelfItemService.count(), HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/bookshelfItems/maxItems")
-    public String maxItems() {
-        return bookshelfItemService.maxItems();
+    public ResponseEntity<String> maxItems() {
+        try {
+            return new ResponseEntity<>(bookshelfItemService.maxItems(), HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/bookshelfItems/howManyMoreCanHold")
-    public long howManyMoreCanHold() {
-        return bookshelfItemService.howManyMoreCanHold();
+    public ResponseEntity<Long> howManyMoreCanHold() {
+        try {
+            return new ResponseEntity<>(bookshelfItemService.howManyMoreCanHold(), HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/bookshelfItems/readPage")
-    public String readPage(Long itemId, Long pageNumber) throws PrinterException, IOException {
-        return bookshelfItemService.readPage(itemId, pageNumber);
+    public ResponseEntity<String> readPage(Long itemId, Long pageNumber) {
+        try {
+            return new ResponseEntity<>(bookshelfItemService.readPage(itemId, pageNumber), HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/bookshelfItems/searchItems")
-    public List<BookShelfItem> searchByText(String text) {
+    public ResponseEntity<List<BookShelfItem>> searchByText(String text) {
         try {
-            return bookshelfItemService.searchByText(text);
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            return new ResponseEntity<>(bookshelfItemService.searchByText(text), HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return null;
     }
 }

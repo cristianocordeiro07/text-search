@@ -87,7 +87,7 @@ public class BookshelfItemServiceImpl implements BookshelfItemService {
             //Index all files
             luceneService.indexFiles();
         } else {
-            throw new RuntimeException("Just accept pdf files!");
+            throw new RuntimeException("Only accept pdf files!");
         }
     }
 
